@@ -23,23 +23,27 @@ func main() {
 			break
 		}
 		num, err := strconv.Atoi(line[1:])
-		num %= 100
 		if err != nil {
 			panic(err)
 		}
+		// fmt.Println(num)
+		add := +1
 		if line[0] == 'L' {
-			dial -= num
-			if dial < 0 {
-				dial += 100
-			}
-		} else {
-			dial += num
-			if dial >= 100 {
-				dial -= 100
-			}
+			add = -1	
 		}
-		if dial == 0 {
-			ans += 1
+		
+		for num > 0 {
+			dial += add
+			if dial < 0 {
+				dial = 99 
+			}
+			if dial >= 100 {
+				dial = 0
+			}
+			if dial == 0 {
+				ans += 1
+			}
+			num -= 1
 		}
 	}
 	fmt.Println(ans)
