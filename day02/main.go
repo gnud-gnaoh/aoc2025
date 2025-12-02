@@ -14,6 +14,17 @@ func check(x int) bool {
 	return s[:h] == s[h:]
 }
 
+func check2(x int) bool {
+	s := strconv.Itoa(x)
+	h := len(s) / 2
+	for i := 1; i <= h; i += 1 {	
+		if strings.Repeat(s[:i], len(s) / i) == s {
+			return true
+		}
+	}
+	return false
+}
+
 func main() {
 	input, err := os.Open("input")	
 	if err != nil {
@@ -40,7 +51,7 @@ func main() {
 				panic(err)
 			}
 			for i := s; i <= e; i++ {
-				if check(i) {
+				if check2(i) {
 					ans += i
 				}
 			}
