@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"os"
 	"bufio"
-	// "strconv"
+	"strconv"
 	// "strings"
 )
 
@@ -22,13 +22,27 @@ func main() {
 			break
 		}
 		
-		mx := 0
-		for i := 0; i < len(line); i += 1 {
-			for j := i + 1; j < len(line); j += 1 {
-				mx = max(mx,(int(line[i]) - int('0')) * 10 + (int(line[j]) - int('0')))
+		// start from last 12 chars
+		cur := line[len(line) - 12:]
+		for i := len(line) - 13; i >= 0; i-- {
+			nxt := string(line[i]) + cur
+			best, e := strconv.Atoi(cur) 
+			if e != nil {
+				panic(e)
+			}
+			for j := 0; j < len(nxt); j++ {
+				tmp := nxt[:j] + nxt[j + 1:]	
+				val, e := strconv.Atoi(tmp)
+				if e != nil { panic (e) }
+				if val > best {
+					best = val
+					cur = tmp
+				}
 			}
 		}
-		ans += mx
+		v, e := strconv.Atoi(cur)
+		if e != nil { panic(e) }
+		ans += v 
 	}
 	fmt.Println(ans)
 }
