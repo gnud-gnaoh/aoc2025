@@ -1,0 +1,3 @@
+My code in go for advent of code 2025
+
+https://adventofcode.com/
